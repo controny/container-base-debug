@@ -54,10 +54,10 @@ jobs:
         uses: actions/cache@v3
         with:
           path: |
-            /tmp/.buildx-cache-centos7
-          key: ${{ runner.os }}-buildx-centos7-${{ github.sha }}
+            /tmp/.buildx-cache-deepspeed
+          key: ${{ runner.os }}-buildx-deepspeed-${{ github.sha }}
           restore-keys: |
-            ${{ runner.os }}-buildx-centos7-
+            ${{ runner.os }}-buildx-deepspeed-
       # Login against a Docker registry except on PR
       # https://github.com/docker/login-action
       - name: Log into registry ${{ env.REGISTRY }}
@@ -94,17 +94,17 @@ jobs:
         uses: docker/build-push-action@v4
         with:
           context: .
-          file: Dockerfile_centos7
+          file: Dockerfile_deepspeed
           platforms: linux/amd64
           push: ${{ github.event_name != 'pull_request' }}
           tags: |
-            ${{ env.IMAGE_NAME }}:centos7
-            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:centos7
+            ${{ env.IMAGE_NAME }}:deepspeed
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:deepspeed
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=local,src=/tmp/.buildx-cache-centos7
-          cache-to: type=local,dest=/tmp/.buildx-cache-centos7-new
+          cache-from: type=local,src=/tmp/.buildx-cache-deepspeed
+          cache-to: type=local,dest=/tmp/.buildx-cache-deepspeed-new
       
       - name: Move cache
         run: |
-          rm -rf /tmp/.buildx-cache-centos7 
-          mv /tmp/.buildx-cache-centos7-new /tmp/.buildx-cache-centos7
+          rm -rf /tmp/.buildx-cache-deepspeed 
+          mv /tmp/.buildx-cache-deepspeed-new /tmp/.buildx-cache-deepspeed
