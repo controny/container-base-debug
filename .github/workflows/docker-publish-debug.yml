@@ -35,8 +35,8 @@ jobs:
             tag_suffix: deepspeed
           - dockerfile: Dockerfile_centos7
             tag_suffix: centos7
-          - dockerfile: Dockerfile_gpt_neox
-            tag_suffix: gpt_neox
+          # - dockerfile: Dockerfile_gpt_neox
+          #   tag_suffix: gpt_neox
 
     steps:
       - name: Checkout repository
