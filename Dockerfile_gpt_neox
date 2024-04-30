@@ -73,12 +73,12 @@ RUN mkdir -p /home/mchorse/.ssh /job && \
     echo 'export LD_LIBRARY_PATH=/usr/local/lib:/usr/local/mpi/lib:/usr/local/mpi/lib64:$LD_LIBRARY_PATH' >> /home/mchorse/.bashrc
 
 #### Python packages
-COPY requirements/* ./
+COPY gpt-neox/requirements/* ./
 RUN python -m pip install --no-cache-dir -r requirements.txt && pip install -r requirements-onebitadam.txt
 RUN python -m pip install -r requirements-wandb.txt
 RUN python -m pip install protobuf==3.20.*
 
-COPY megatron/fused_kernels/ /megatron/fused_kernels
+COPY gpt-neox/megatron/fused_kernels/ /megatron/fused_kernels
 WORKDIR /megatron/fused_kernels
 RUN python setup.py install
 
