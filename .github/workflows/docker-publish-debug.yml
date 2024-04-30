@@ -74,8 +74,11 @@ jobs:
         with:
           context: .
           file: ${{ matrix.dockerfile }}
+          platforms: linux/amd64
           push: ${{ github.event_name != 'pull_request' }}
-          tags: ${{ steps.meta.outputs.tags }}
+          tags: |
+            ${{ env.IMAGE_NAME }}:${{ matrix.tag_suffix }}
+            ${{ env.REGISTRY }}/${{ env.IMAGE_NAME }}:${{ matrix.tag_suffix }}
           labels: ${{ steps.meta.outputs.labels }}
           cache-from: type=local,src=/tmp/.buildx-cache-${{ matrix.tag_suffix }}
           cache-to: type=local,dest=/tmp/.buildx-cache-${{ matrix.tag_suffix }}-new
