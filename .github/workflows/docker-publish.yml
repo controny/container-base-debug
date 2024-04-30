@@ -13,7 +13,7 @@ on:
     # Trigger a build when a file named starting with "Dockerfile" is added (or modified)
     paths:
       - 'Dockerfile*'
-      - '.github/workflows/*'
+      - '.github/workflows/docker-publish.yml'
     # Publish semver tags as releases.
     tags: [ 'v*.*.*' ]
   pull_request:
