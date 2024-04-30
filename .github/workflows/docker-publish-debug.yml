@@ -1,6 +1,8 @@
 name: Docker Build and Publish
 
 on:
+  schedule:
+    - cron: '21 21 * * 5'
   push:
     branches: [ main ]
     paths:
