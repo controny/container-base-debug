@@ -52,12 +52,12 @@ jobs:
       - name: Prune Docker
         run: docker system prune -af
 
-      - name: Cache Docker layers
-        uses: actions/cache@v3
-        with:
-          path: /tmp/.buildx-cache-${{ matrix.tag_suffix }}
-          key: ${{ runner.os }}-buildx-${{ matrix.tag_suffix }}-${{ github.sha }}
-          restore-keys: ${{ runner.os }}-buildx-${{ matrix.tag_suffix }}-
+      # - name: Cache Docker layers
+      #   uses: actions/cache@v3
+      #   with:
+      #     path: /tmp/.buildx-cache-${{ matrix.tag_suffix }}
+      #     key: ${{ runner.os }}-buildx-${{ matrix.tag_suffix }}-${{ github.sha }}
+      #     restore-keys: ${{ runner.os }}-buildx-${{ matrix.tag_suffix }}-
 
       - name: Log into registry ${{ env.REGISTRY }}
         if: github.event_name != 'pull_request'
@@ -94,10 +94,10 @@ jobs:
           tags: |
             ${{ env.IMAGE_NAME }}:${{ matrix.tag_suffix }}
           labels: ${{ steps.meta.outputs.labels }}
-          cache-from: type=local,src=/tmp/.buildx-cache-${{ matrix.tag_suffix }}
-          cache-to: type=local,dest=/tmp/.buildx-cache-${{ matrix.tag_suffix }}-new
+          # cache-from: type=local,src=/tmp/.buildx-cache-${{ matrix.tag_suffix }}
+          # cache-to: type=local,dest=/tmp/.buildx-cache-${{ matrix.tag_suffix }}-new
 
-      - name: Move cache
-        run: |
-          rm -rf /tmp/.buildx-cache-${{ matrix.tag_suffix }}
-          mv /tmp/.buildx-cache-${{ matrix.tag_suffix }}-new /tmp/.buildx-cache-${{ matrix.tag_suffix }}
+      # - name: Move cache
+      #   run: |
+      #     rm -rf /tmp/.buildx-cache-${{ matrix.tag_suffix }}
+      #     mv /tmp/.buildx-cache-${{ matrix.tag_suffix }}-new /tmp/.buildx-cache-${{ matrix.tag_suffix }}
